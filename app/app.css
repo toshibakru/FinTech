@@ -28,3 +28,25 @@
   content: "";
   padding: 0;
 }
+
+html {
+    background-color: #eee;
+}
+
+a : hover {
+    text-decoration: underline !important;
+    color: rgb(246, 220, 69) !important;
+}
+
+body {
+    background-color: #eee !important; 
+}
+
+.navbar-inverse .navbar-brand a {
+    text-decoration: underline !important;
+    color: rgb(246, 220, 69) !important;
+}
+
+.vline{
+ border-left: 1px solid black;
+}

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.tournaments', ['ngRoute'])
+angular.module('myApp.tournaments', ['ngRoute', 'firebase'])
 
 // Declared route
 .config(['$routeProvider', function($routeProvider) {
@@ -11,6 +11,9 @@ angular.module('myApp.tournaments', ['ngRoute'])
 }])
 
 // Register controller
-.controller('TournamentsCtrl', [function() {
-
+.controller('TournamentsCtrl', ['$scope', '$firebaseArray',function($scope, $firebaseArray) {
+    
+    var ref = new Firebase("https://fintech-84ec8.firebaseio.com/Clubs");
+    var firebaseArr = $firebaseArray(ref);
+    $scope.Clubs = firebaseArr;
 }]);

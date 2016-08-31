@@ -10,14 +10,6 @@ angular.module('myApp.home', ['ngRoute', 'firebase'])
 }])
 
 .controller('HomeCtrl', ['$scope', '$location', '$firebaseAuth', function($scope, $location, $firebaseAuth) {
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyBwMGeA7Hh1nDbQ4EpldRhekrIkdRbKszw",
-        authDomain: "fintech-84ec8.firebaseapp.com",
-        databaseURL: "https://fintech-84ec8.firebaseio.com",
-        storageBucket: "fintech-84ec8.appspot.com",
-    };
-    firebase.initializeApp(config);
     $scope.user = {};
     $scope.SignIn = function(e) {
         e.preventDefault();

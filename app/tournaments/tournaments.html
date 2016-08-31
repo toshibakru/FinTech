@@ -16,6 +16,27 @@
             <center>
                 <h2>Турниры</h2>
             </center>
+            <table class="table table-hover">
+                <thead>
+                  <tr><th colspan="4">Чемпионат по футболу</th></tr>
+                    <tr>
+                        <th>POS</th>
+                        <th>TEAM</th>
+                        <th>GD</th>
+                        <th>PTS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="club in Clubs">
+                    <td>{{$index + 1}}</td>
+                    <td>
+                      {{club.Name}}
+                    </td>
+                    <td>{{club.GD}}</td>
+                    <td>{{club.points}}</td>
+                  </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

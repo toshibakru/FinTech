@@ -13,12 +13,48 @@
 </head>
 
 <body ng-controller="ManagementCtrl">
-
     <div class="container">
         <div class="jumbotron" style="padding-bottom:0px;">
             <center>
                 <h2>Управление турнирами</h2>
             </center>
+            <table class="table table-hover">
+                <thead>
+                  <tr><th colspan="5">Чемпионат по футболу</th></tr>
+                    <tr>
+                        <th>POS</th>
+                        <th>TEAM</th>
+                        <th ng-show="!pointsBo" ng-click="pointsBo = !pointsBo">▶</th>
+                        <td ng-show="pointsBo" ng-click="pointsBo = !pointsBo">◀</td>
+                        <th ng-show="pointsBo" ng-repeat="club in Clubs">{{$index + 1}}</th>
+                        <th class="vline">GD</th>
+                        <th class="vline">PTS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="club in Clubs">
+                    <td>{{$index + 1}}</td>
+                    <td>
+                      {{club.Name}}
+                    </td>
+                    <td ng-show="pointsBo"></td>
+                    <td ng-show="!pointsBo"></td>
+                    <td ng-show = "pointsBo" ng-repeat="club in Clubs">{{"-:-"}}</td>
+                    <td class="vline">{{club.GD}}</td>
+                    <td class="vline">{{club.points}}</td>
+                    <td><span ng-click="removeTeam($index)">&times;</span></td>
+                  </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-10">
+                    <input class="form-control" ng-model = "addMe" placeholder="Название команды">
+                </div>
+                <div class="col-md-2">
+                    <button class="span4 form-control" ng-click="addTeam()">Добавить</button>
+                </div>
+            </div>
+            <p>{{errortext}}</p>
         </div>
     </div>
 </body>
