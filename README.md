@@ -13,7 +13,12 @@
 На данной странице можно посмотреть таблицу результатов, графики, также возможно открыть таблицу с результатми всех матчей.
 Данное представление взаимодействует с контроллером TournamentsCtrl.
 
+![alt text](https://raw.githubusercontent.com/toshibakru/FinTech/master/app/test/0.png)
+![alt text](https://raw.githubusercontent.com/toshibakru/FinTech/master/app/test/1.png)
+
 #### #/management
 
 На данной странице можно редактировать таблицу результатов, а конкретнее, редактировать результат каждого матча, плюс можно добавлять новую команду и удалять уже существующую
+![alt text](https://raw.githubusercontent.com/toshibakru/FinTech/master/app/test/2.png)
+![alt text](https://raw.githubusercontent.com/toshibakru/FinTech/master/app/test/3.png)
 
