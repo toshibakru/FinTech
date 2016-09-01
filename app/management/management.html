@@ -16,34 +16,43 @@
     <div class="container">
         <div class="jumbotron" style="padding-bottom:0px;">
             <center>
-                <h2>Управление турнирами</h2>
+                <h2>Чемпионат по футболу</h2>
             </center>
-            <table class="table table-hover">
+            <table class="table table-hover scores">
                 <thead>
-                  <tr><th colspan="5">Чемпионат по футболу</th></tr>
                     <tr>
                         <th>POS</th>
                         <th>TEAM</th>
-                        <th ng-show="!pointsBo" ng-click="pointsBo = !pointsBo">▶</th>
-                        <td ng-show="pointsBo" ng-click="pointsBo = !pointsBo">◀</td>
-                        <th ng-show="pointsBo" ng-repeat="club in Clubs">{{$index + 1}}</th>
+                        <th ng-show="!pointsBo" ng-click="pointsBo = !pointsBo">Показать ▶</th>
+                        <td ng-show="pointsBo" ng-click="pointsBo = !pointsBo">◀ Скрыть</td>
+                        <th class="teamNum" ng-show="pointsBo" ng-repeat="club in Clubs">{{$index + 1}}</th>
                         <th class="vline">GD</th>
                         <th class="vline">PTS</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="club in Clubs">
-                    <td>{{$index + 1}}</td>
+                  <tr ng-if="Clubs.length" ng-repeat="(i,club) in Clubs">
+                    <td>{{i + 1}}</td>
                     <td>
                       {{club.Name}}
                     </td>
                     <td ng-show="pointsBo"></td>
                     <td ng-show="!pointsBo"></td>
-                    <td ng-show = "pointsBo" ng-repeat="club in Clubs">{{"-:-"}}</td>
+                    <td class="scoreInputTd" ng-show = "pointsBo" ng-repeat="(j,club) in Clubs">
+                        <input ng-if="i !== j"  class="scoreInput" ng-blur="addResult(i,j)" ng-model="Clubs[i].competitors[j]">
+                        <input ng-if="i === j"  class="scoreInput" disabled="disabled" ng-model="Clubs[i].competitors[j]">
+                            <!--span class="input-group-btn">
+                                <button class="btn scoreBtn" type="button" hidden="true">ОК</button>
+                            </span-->
+                      </td>
                     <td class="vline">{{club.GD}}</td>
                     <td class="vline">{{club.points}}</td>
                     <td><span ng-click="removeTeam($index)">&times;</span></td>
                   </tr>
+                    <tr ng-if="!Clubs.length">
+                        <td colspan="5"><center><h3>Пока нет команд(</h3></center></td>
+                    </tr>
                 </tbody>
             </table>
             <div class="row">

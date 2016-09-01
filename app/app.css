@@ -50,3 +50,32 @@ body {
 .vline{
  border-left: 1px solid black;
 }
+
+.scoreInput {
+    outline : none;
+    text-align: center;
+    background-color: #eee;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.scoreBtn {
+    border : none;
+    background-color: black;
+    color: rgb(246, 220, 69);
+    border-radius: 0px;
+}
+
+.scoreInput:focus {
+    background-color: rgb(246, 220, 69);
+}
+.scoreInputTd {
+    padding: 0 !important;   
+}
+
+.teamNum {
+    text-align: center;
+}
