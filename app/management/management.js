@@ -177,10 +177,10 @@ angular.module('myApp.management', ['ngRoute', 'firebase'])
                 $scope.Clubs[i].competitors[j] = mas[i][j];
             }
         }
-        
+        */
         for (var i = 0; i < $scope.Clubs.length; i++) {
             $scope.Clubs.$save(i);
-        }*/
+        }
     }
     
     function comp(a,b) {

@@ -3,7 +3,6 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
     <title>FinTech</title>
 
 </head>
@@ -18,7 +17,7 @@
             <table class="table table-hover scores">
                 <thead>
                     <tr>
-                        <th>POS</th>
+                        <th>№</th>
                         <th>TEAM</th>
                         <th class="hidden-xs" ng-show="!pointsBo" ng-click="pointsBo = !pointsBo">Показать ▶</th>
                         <td ng-show="pointsBo" ng-click="pointsBo = !pointsBo">◀ Скрыть</td>
@@ -69,6 +68,7 @@
                     <canvas id="radar" class="chart chart-radar" chart-data="data" chart-options="options" chart-labels="labels"></canvas> 
                 </div>
                 <div class="col-md-offset-3 col-md-6">
+                    <center><h6>Разница мячей</h6></center>
                     <canvas id="bar" class="chart chart-bar" chart-data="GDdata" chart-labels="labels" chart-series="series"></canvas>
                 </div>
             </div>
