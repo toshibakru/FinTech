@@ -15,24 +15,9 @@ angular.module('myApp.management', ['ngRoute', 'firebase'])
     var ref = new Firebase("https://fintech-84ec8.firebaseio.com/Clubs");
     var firebaseObj = $firebaseObject(ref);
     $scope.Clubs = firebaseObj;
-    /*
-    for (var i = 0; i < $scope.Clubs.length; i++) {
-        $scope.Clubs[i].competitors = [];
-        for (var j = 0; j < $scope.Clubs.length; j++) {
-            if (i === j) {
-                $scope.Clubs[i].competitors[j] = "-";
-                console.log(i,j,'-')
-            }
-            else {
-                $scope.Clubs[i].competitors[j] = "-:-";
-                console.log(i,j,'-:-');                
-            }
-            
-        }
-    }*/
-    $scope.pointsBo = false;
+    var regExp = /^\d{1,}:\d{1,}$/;
     
-    //firebase.database().ref('Clubs').set(['asd','asd','asd']);
+    $scope.pointsBo = false;
     $scope.addTeam = function() {
         $scope.errortext = "";
         if (!$scope.addMe) {return;}
@@ -51,6 +36,11 @@ angular.module('myApp.management', ['ngRoute', 'firebase'])
                 points : 0,
                 GD : 0,
                 competitors : mas,
+                W : 0,
+                D : 0,
+                L : 0,
+                GF : 0,
+                GA : 0,
             });
             $scope.addMe = "";
             for (var i = 0; i < $scope.Clubs.length; i++) {
@@ -73,9 +63,59 @@ angular.module('myApp.management', ['ngRoute', 'firebase'])
     $scope.addResult = function(i,j) {
         if ($scope.Clubs[i].competitors[j] == "") {
             $scope.Clubs[i].competitors[j] = "-:-";
+            $scope.Clubs[j].competitors[i] = "-:-";
+        }
+        else if ($scope.Clubs[i].competitors[j].match(regExp)) {
+            var res = $scope.Clubs[i].competitors[j].split(":");
+            $scope.Clubs[j].competitors[i] = res[1] + ":" + res[0];
         }
         else {
-            $scope.Clubs[j].competitors[i] = $scope.Clubs[i].competitors[j];
+            $scope.Clubs[j].competitors[i] = "-:-";
+            $scope.Clubs[i].competitors[j] = "-:-";
+        }
+        $scope.Clubs[i].GD = 0; $scope.Clubs[i].GF = 0; $scope.Clubs[i].GA = 0; $scope.Clubs[i].W = 0; $scope.Clubs[i].D = 0; $scope.Clubs[i].L = 0;
+        $scope.Clubs[j].GD = 0; $scope.Clubs[j].GF = 0; $scope.Clubs[j].GA = 0; $scope.Clubs[j].W = 0; $scope.Clubs[j].D = 0; $scope.Clubs[j].L = 0;
+        $scope.Clubs[i].points = 0;
+        $scope.Clubs[j].points = 0;
+        for (var k = 0; k < $scope.Clubs[i].competitors.length; k++) {
+            var res = $scope.Clubs[i].competitors[k].split(":");
+            var secondRes = $scope.Clubs[j].competitors[k].split(":");
+            var a = parseInt(res[0]);
+            var b = parseInt(res[1]);
+            if (res.length === 2 && !isNaN(a) && !isNaN(b)) {
+                $scope.Clubs[i].GD += a - b;
+                $scope.Clubs[i].GF += a;
+                $scope.Clubs[i].GA += b;
+                if (a === b) {
+                    $scope.Clubs[i].points++;
+                    $scope.Clubs[i].D++;
+                }
+                else if( a > b) {
+                    $scope.Clubs[i].points += 3;
+                    $scope.Clubs[i].W++;
+                }
+                else {
+                    $scope.Clubs[i].L++;
+                }
+            }
+            var a = parseInt(secondRes[0]);
+            var b = parseInt(secondRes[1]);
+            if (secondRes.length === 2 && !isNaN(a) && !isNaN(b)) {
+                $scope.Clubs[j].GD += a - b;
+                $scope.Clubs[j].GF += a;
+                $scope.Clubs[j].GA += b;
+                if (a === b) {
+                    $scope.Clubs[j].points++;
+                    $scope.Clubs[j].D++;
+                }
+                else if( a > b) {
+                    $scope.Clubs[j].points += 3;
+                    $scope.Clubs[j].W++;
+                }
+                else {
+                    $scope.Clubs[j].L++;
+                }
+            }
         }
         $scope.Clubs.$save(i);
         $scope.Clubs.$save(j)

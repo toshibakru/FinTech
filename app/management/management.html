@@ -23,9 +23,15 @@
                     <tr>
                         <th>POS</th>
                         <th>TEAM</th>
-                        <th ng-show="!pointsBo" ng-click="pointsBo = !pointsBo">Показать ▶</th>
+                        <th class="hidden-xs" ng-show="!pointsBo" ng-click="pointsBo = !pointsBo">Показать ▶</th>
                         <td ng-show="pointsBo" ng-click="pointsBo = !pointsBo">◀ Скрыть</td>
                         <th class="teamNum" ng-show="pointsBo" ng-repeat="club in Clubs">{{$index + 1}}</th>
+                        <th class="vline">Played</th>
+                        <th class="vline hidden-xs">W</th>
+                        <th class="vline hidden-xs">D</th>
+                        <th class="vline hidden-xs">L</th>
+                        <th class="vline hidden-xs">GF</th>
+                        <th class="vline hidden-xs">GA</th>
                         <th class="vline">GD</th>
                         <th class="vline">PTS</th>
                         <th></th>
@@ -38,20 +44,26 @@
                       {{club.Name}}
                     </td>
                     <td ng-show="pointsBo"></td>
-                    <td ng-show="!pointsBo"></td>
+                    <td class="hidden-xs" ng-show="!pointsBo"></td>
                     <td class="scoreInputTd" ng-show = "pointsBo" ng-repeat="(j,club) in Clubs">
-                        <input ng-if="i !== j"  class="scoreInput" ng-blur="addResult(i,j)" ng-model="Clubs[i].competitors[j]">
+                        <input ng-if="i !== j"  class="scoreInput" ng-blur="addResult(i,j)" ng-model="Clubs[i].competitors[j]" ng-focus="Clubs[i].competitors[j] = ''">
                         <input ng-if="i === j"  class="scoreInput" disabled="disabled" ng-model="Clubs[i].competitors[j]">
                             <!--span class="input-group-btn">
                                 <button class="btn scoreBtn" type="button" hidden="true">ОК</button>
                             </span-->
                       </td>
+                      <td class="vline">{{club.W + club.D + club.L}}</td>
+                      <td class="vline hidden-xs">{{club.W}}</td>
+                      <td class="vline hidden-xs">{{club.D}}</td>
+                      <td class="vline hidden-xs">{{club.L}}</td>
+                      <td class="vline hidden-xs">{{club.GF}}</td>
+                      <td class="vline hidden-xs">{{club.GA}}</td>
                     <td class="vline">{{club.GD}}</td>
                     <td class="vline">{{club.points}}</td>
                     <td><span ng-click="removeTeam($index)">&times;</span></td>
                   </tr>
                     <tr ng-if="!Clubs.length">
-                        <td colspan="5"><center><h3>Пока нет команд(</h3></center></td>
+                        <td colspan="11"><center><h3>Пока нет команд(</h3></center></td>
                     </tr>
                 </tbody>
             </table>
