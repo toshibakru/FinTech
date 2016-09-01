@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-
     <title>FinTech</title>
 
 </head>
@@ -60,6 +59,19 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-md-6">
+                    <center><h6>Количество очков</h6></center>
+                    <canvas id="doughnut" class="chart chart-doughnut" chart-data="pointsData" chart-labels="pointsLabels"></canvas> 
+                </div>
+                <div class="col-md-6">
+                    <center><h6>Количество забитых мячей</h6></center>
+                    <canvas id="radar" class="chart chart-radar" chart-data="data" chart-options="options" chart-labels="labels"></canvas> 
+                </div>
+                <div class="col-md-offset-3 col-md-6">
+                    <canvas id="bar" class="chart chart-bar" chart-data="GDdata" chart-labels="labels" chart-series="series"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </body>

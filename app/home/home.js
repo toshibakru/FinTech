@@ -9,7 +9,7 @@ angular.module('myApp.home', ['ngRoute', 'firebase'])
     });
 }])
 
-.controller('HomeCtrl', ['$scope', '$location', '$firebaseAuth', function($scope, $location, $firebaseAuth) {
+.controller('HomeCtrl', ['$scope', '$location', '$firebaseAuth', '$rootScope', function($scope, $location, $firebaseAuth, $rootScope) {
     $scope.user = {};
     $scope.SignIn = function(e) {
         e.preventDefault();
@@ -18,7 +18,7 @@ angular.module('myApp.home', ['ngRoute', 'firebase'])
         
         firebase.auth().signInWithEmailAndPassword(username, password).then(function(value){
             console.log("Вы вошли успешно");
-            console.log($location.path());
+            $rootScope.auth = true;
             $scope.$apply(function() {
                 $location.path('/management');
             });

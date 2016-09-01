@@ -11,12 +11,15 @@ angular.module('myApp.management', ['ngRoute', 'firebase'])
 }])
 
 // Register controller
-.controller('ManagementCtrl', ['$scope','$firebaseArray',function($scope, $firebaseObject) {
+.controller('ManagementCtrl', ['$scope','$firebaseArray', 'orderByFilter', function($scope, $firebaseObject, orderBy) {
     var ref = new Firebase("https://fintech-84ec8.firebaseio.com/Clubs");
     var firebaseObj = $firebaseObject(ref);
     $scope.Clubs = firebaseObj;
+    $scope.Clubs.$loaded()
+      .then(function() {
+        sortClubs();
+      })
     var regExp = /^\d{1,}:\d{1,}$/;
-    
     $scope.pointsBo = false;
     $scope.addTeam = function() {
         $scope.errortext = "";
@@ -41,7 +44,8 @@ angular.module('myApp.management', ['ngRoute', 'firebase'])
                 L : 0,
                 GF : 0,
                 GA : 0,
-            });
+                id : $scope.Clubs.length,
+            }, sortClubs);
             $scope.addMe = "";
             for (var i = 0; i < $scope.Clubs.length; i++) {
                 mas = $scope.Clubs[i].competitors;
@@ -53,6 +57,7 @@ angular.module('myApp.management', ['ngRoute', 'firebase'])
                 $scope.Clubs[i].competitors = mas;
                 $scope.Clubs.$save(i);
             }
+            sortClubs();
             
         }
         else {
@@ -117,12 +122,76 @@ angular.module('myApp.management', ['ngRoute', 'firebase'])
                 }
             }
         }
-        $scope.Clubs.$save(i);
-        $scope.Clubs.$save(j)
+        sortClubs();
     }
     
     $scope.removeTeam = function(ind) {
         $scope.errortext = "";
         $scope.Clubs.$remove(ind);
+    }
+    var ch = [];
+    function sortClubs() {
+        
+        /*
+        for (var i = 0; i < $scope.Clubs.length - 1; i++) {
+            for (var j = i +1 ; j < $scope.Clubs.length; j++) {
+                if ($scope.Clubs[i].points < $scope.Clubs[j].points) {
+                    for (var k = 0; k < $scope.Clubs.length; k++) {
+                        var ob = $scope.Clubs[k].competitors[j];
+                        $scope.Clubs[k].competitors[j] = $scope.Clubs[k].competitors[i];;
+                        $scope.Clubs[k].competitors[i] = ob;
+                    }
+                    var ob = $scope.Clubs[i];
+                    $scope.Clubs[i] = $scope.Clubs[j];
+                    $scope.Clubs[j] = ob;
+                }
+            }
+        }*/
+        /*
+        var mas = [];
+        for (var i = 0; i < $scope.Clubs.length; i++) {
+            mas[i] = [];
+            for (var j = 0; j < $scope.Clubs.length; j++) {
+                mas[i][j] = $scope.Clubs[i].competitors[j];
+            }
+        }
+        ch = [];
+        var sorted = $scope.Clubs.sort(comp);
+        console.log(mas);
+        console.log(ch);
+        for (var l = 0; l < ch.length; l++) {
+            for (var k = 0; k < $scope.Clubs.length; k++) {
+                var ob = mas[k][ch[l][0]];
+                mas[k][ch[l][0]] = mas[k][ch[l][1]];;
+                mas[k][ch[l][1]] = ob;
+            }
+            for (var k = 0; k < $scope.Clubs.length; k++) {
+                var ob = mas[ch[l][0]][k];
+                mas[ch[l][0]][k] = mas[ch[l][1]][k];
+                mas[ch[l][1]][k] = ob;   
+            }
+        }
+        
+        for (var i = 0; i < $scope.Clubs.length; i++) {
+            for (var j = 0; j < $scope.Clubs.length; j++) {
+                $scope.Clubs[i].competitors[j] = mas[i][j];
+            }
+        }
+        
+        for (var i = 0; i < $scope.Clubs.length; i++) {
+            $scope.Clubs.$save(i);
+        }*/
+    }
+    
+    function comp(a,b) {
+        if (a.points < b.points) {
+            ch.push([a.id, b.id]);
+            
+            return 1;
+        }
+        else {
+            
+            return -1;
+        }
     }
 }]);

@@ -79,3 +79,7 @@ body {
 .teamNum {
     text-align: center;
 }
+
+#bar {
+    margin-top: 30px;
+}
